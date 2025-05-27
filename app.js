@@ -1,6 +1,8 @@
-const express = require('express');
-const morgan = require('morgan');
-const cors = require('cors');
+import express from 'express';
+import cors from 'cors';
+import morgan from 'morgan';
+import authRoutes from './routes/authRoutes.js'; 
+import userRoutes from './routes/userRoutes.js';
 
 const app = express();
 
@@ -10,9 +12,12 @@ app.use(cors());
 app.use(morgan('dev'));
 
 // Test route
-app.get('/', (req, res) => {
-    res.json({message: 'Welcome to SKillSwap API'});
-});
+app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
+// app.get('/', (req, res) => {
+//     res.json({message: 'Welcome to SKillSwap API'});
+// });
 
-module.exports = app;
+// module.exports = app;
+export default app;
 
