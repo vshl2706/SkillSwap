@@ -4,7 +4,8 @@ import bcrypt from 'bcryptjs';
 const UserSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        trim: true,
     },
     email: {
         type: String,
@@ -13,13 +14,20 @@ const UserSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true
+        required: true,
+        minlength: 6,
     },
     role: {
         type: String,
-        enum: ['learner', 'teacher', 'both'],
-        default: 'learner'
-    }
+        enum: ['client', 'freelancer', 'admin'],
+        default: 'freelancer'
+    },
+    bio: {
+        type: String,
+    },
+    skills: {
+        type: [String],
+    },
 }, {timestamps: true})
 
 // Hash password before storing it to database

@@ -7,7 +7,7 @@ const generateToken = (userId) => {
 };
 
 const register = async(req, res) => {
-    const {name, email, password, role} = req.body;
+    const {name, email, password, role, skills, bio} = req.body;
     try {
         console.log("Incoming data: ", req.body);
         let user = await User.findOne({email});
@@ -16,7 +16,7 @@ const register = async(req, res) => {
 
         if(user) return res.status(400).json({message: "User already exists"});
 
-        user  = await User.create({name, email, password, role});
+        user  = await User.create({name, email, password, role, skills, bio});
         const token = generateToken(user._id);
         res.status(201).json({user, token});
     } catch (err) {
